@@ -1,10 +1,14 @@
 extends Area2D
 
+signal hit
+
 export var speed = 400
 var screen_size
 
+
 func _ready():
 	screen_size = get_viewport_rect().size
+	hide()
 
 
 func _process(delta):
@@ -35,5 +39,16 @@ func _process(delta):
 	elif velocity.y != 0:
 		$AnimatedSprite.animation = "up"
 		$AnimatedSprite.flip_v = (velocity.y > 0)
-	
-	hide()
+
+
+
+func _on_Player_body_entered(body):
+	hide() # disappear player after being hit
+	emit_signal("hit")
+	$CollisionShape2D.set_deferred("disabled", true)
+
+
+func start(pos):
+	position = pos
+	show()
+	$CollisionShape2D.disabled = false
