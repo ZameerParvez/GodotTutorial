@@ -7,14 +7,17 @@ func _ready():
 	randomize()	# initialises the rng seed, which is used by the mobs
 
 func game_over():
+	$HUD.show_game_over()
 	$ScoreTimer.stop()
 	$MobTimer.stop()
+	get_tree().call_group("mobs", "queue_free")
 
 func new_game():
 	score = 0
+	$HUD.update_score(score)
+	$HUD.show_message("Get Ready")
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
-
 
 func _on_StartTimer_timeout():
 	$ScoreTimer.start()
@@ -22,6 +25,7 @@ func _on_StartTimer_timeout():
 
 func _on_ScoreTimer_timeout():
 	score += 1
+	$HUD.update_score(score)
 
 func _on_MobTimer_timeout():
 	# chooses a random position along the path, and get the correct direction the mob should be facing

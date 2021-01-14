@@ -28,9 +28,11 @@ animations = [ {
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 33.7943
-height = 27.9064
+height = 7.77586
 
-[node name="Mob" type="RigidBody2D"]
+[node name="Mob" type="RigidBody2D" groups=[
+"mobs",
+]]
 collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource( 7 )
@@ -41,7 +43,7 @@ __meta__ = {
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 0.75, 0.75 )
 frames = SubResource( 1 )
-animation = "walk"
+animation = "fly"
 frame = 1
 playing = true
 
